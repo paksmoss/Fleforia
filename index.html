@@ -1,222 +1,157 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Сервер Flevoria</title>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Флевория — Политический и архитектурный симулятор в Minecraft</title>
     <style>
-        /* Плавная прокрутка */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background-color: #0f172a;
-            color: white;
-            font-family: Arial, sans-serif;
+        * {
             margin: 0;
-        }
-
-        /* --- ВЕРХНЕЕ МЕНЮ (ПРОЗРАЧНОЕ) --- */
-        .top-menu {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: transparent;
-            display: flex;
-            align-items: center;            
-            padding: 15px 40px;             
+            padding: 0;
             box-sizing: border-box;
-            z-index: 100;
         }
-
-        /* СТИЛЬ ДЛЯ ЛОГОТИПА В ЛЕВОМ ВЕРХНЕМ УГЛУ */
-        .logo {
-            color: white;
-            text-decoration: none;
-            font-size: 20px;
-            font-weight: bold;
-            letter-spacing: 2px;
-            border: 2px solid transparent; 
-            padding: 6px 14px;
-            border-radius: 6px;
-            transition: 0.3s;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
         }
-
-        .logo:hover {
-            background-color: transparent;
-            color: white;
-            border-color: transparent;
-        }
-
-        .nav-links {
-            position: absolute;             
-            left: 50%;                      
-            transform: translateX(-50%);    
-        }
-
-        /* ССЫЛКИ В МЕНЮ */
-        .nav-links a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            font-size: 18px;
-            margin: 0 20px;                 
-            font-weight: bold;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-            transition: 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: white;
-        }
-
-        /* --- ГЛАВНЫЙ ЭКРАН --- */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            
-            background-image: url('https://i.postimg.cc/jqF2tVPy/image.png');
-            background-size: cover;
-            background-position: center;
-        }
-
-        .hero h2 {
-            font-size: 40px;
-            margin: 0;
-            font-weight: normal;
-            color: #e2e8f0;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-        }
-
-        .hero h1 {
-            font-size: 80px;
-            margin: 0;
-            letter-spacing: 5px;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.8);
-        }
-
-        /* --- СЕКЦИИ --- */
-        .section {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .section h2 {
-            font-size: 50px;
-            color: white;
-            margin-bottom: 30px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-        }
-
-        /* 1. СЕКЦИЯ ЗАГРУЗИТЬ (НОВЫЙ ФОН) */
-        #download {
-            background-image: url('https://i.postimg.cc/MpkGfy9F/a.png');
-            background-size: cover;
-            background-position: center;
-        }
-
-        /* 2. СЕКЦИЯ ССЫЛКИ / КОНТАКТЫ */
-        #links { 
-            background-image: url('https://i.postimg.cc/76PhYwKg/2026-10-04-22-53-14.png');
-            background-size: cover;
-            background-position: center;
-        }
-
-        /* 3. СЕКЦИЯ О НАС */
-        #about {
-            background-image: url('https://i.postimg.cc/rwWKfhD3/2026-10-01-23-44-32.png');
-            background-size: cover;
-            background-position: center;
-        }
-
-        #about .text-box {
-            color: white;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-        }
-
-        /* КНОПКИ */
-        .btn {
-            background-color: transparent;
-            color: white;
-            border: 2px solid white;
-            text-decoration: none;
-            padding: 15px 30px;
-            margin: 10px;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 20px;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-            transition: 0.3s;
-            display: inline-block;
-        }
-
-        .btn:hover {
-            background-color: white;
-            color: #0f172a;
-            text-shadow: none;
-        }
-
-        .text-box {
-            max-width: 600px;
+        header {
+            background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=1920&auto=format&fit=crop') no-repeat center center/cover;
+            padding: 100px 20px;
             text-align: center;
-            font-size: 20px;
-            line-height: 1.5;
+            border-bottom: 3px solid #f39c12;
+        }
+        header h1 {
+            font-size: 3.5em;
+            color: #f39c12;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+        header p {
+            font-size: 1.3em;
+            max-width: 800px;
+            margin: 0 auto 30px auto;
+            color: #e0e0e0;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #f39c12;
+            color: #121212;
+            padding: 12px 30px;
+            font-size: 1.1em;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #e67e22;
+        }
+        section {
+            padding: 60px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .about-section h2 {
+            font-size: 2.5em;
+            margin-bottom: 25px;
+            color: #f39c12;
+            text-align: center;
+        }
+        .about-section p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            color: #dcdcdc;
+        }
+        .about-section h3 {
+            font-size: 1.8em;
+            margin-top: 40px;
+            margin-bottom: 15px;
+        }
+        .about-section ul {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            padding-left: 20px;
+            color: #dcdcdc;
+        }
+        .about-section li {
+            margin-bottom: 10px;
+        }
+        .highlight-box {
+            background-color: #1e1e1e;
+            border-left: 4px solid #f39c12;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        footer {
+            background-color: #0a0a0a;
+            text-align: center;
+            padding: 30px 20px;
+            color: #777;
+            font-size: 0.9em;
+            border-top: 1px solid #222;
         }
     </style>
 </head>
 <body>
 
-    <!-- ВЕРХНЕЕ МЕНЮ -->
-    <div class="top-menu">
-        <a href="#hero" class="logo">FLEVORIA</a>
+    <header>
+        <h1>Флевория</h1>
+        <p>Уникальный политический и архитектурный симулятор в Майнкрафте. Твоё место в истории готово!</p>
+        <a href="#about" class="btn">Узнать о проекте</a>
+    </header>
 
-        <div class="nav-links">
-            <a href="#download">Загрузить</a>
-            <a href="#links">Ссылки</a>
-            <a href="#about">О нас</a>
-        </div>
-    </div>
+    <main>
+        <section id="about" class="about-section">
+            <h2>О проекте Флевория</h2>
+            
+            <p>
+                Добро пожаловать на официальный сайт Флевории — уникального политического и архитектурного симулятора в Майнкрафте, который создаётся и развивается уже два года.
+            </p>
+            <p>
+                Флевория — это не просто карта, это суверенное цифровое государство со своей историей, законами, экономикой и уникальным культурным кодом. Наш проект объединяет в себе элементы глубокого градостроительства и сложного политического взаимодействия.
+            </p>
 
-    <!-- 0. ГЛАВНЫЙ ЭКРАН -->
-    <div id="hero" class="hero">
-        <h2>WELCOME TO</h2>
-        <h1>FLEVORIA</h1>
-    </div>
+            <h3 style="color: #3498db;">🏙️ Масштаб и Архитектура</h3>
+            <p>
+                Главная гордость нашего государства — его столица и мегаполис, насчитывающий более 1 000 уникальных зданий. Город строится по принципу реальных мировых столиц, отражая эволюцию времени:
+            </p>
+            <ul>
+                <li><strong>Исторические кварталы</strong> бережно хранят память о первых месяцах зарождения государства, радуя глаз классической «старой» архитектурой.</li>
+                <li><strong>Современные районы</strong> и деловые центры уходят стеклянными небоскрёбами в облака, олицетворяя технологический и экономический прогресс Флевории.</li>
+            </ul>
+            <p>
+                Каждая улица, каждый проспект и правительственный объект спроектированы с вниманием к деталям и инфраструктуре.
+            </p>
 
-    <!-- 1. БЛОК ЗАГРУЗИТЬ -->
-    <div id="download" class="section">
-        <h2>Загрузить моды</h2>
-        <div>
-            <a href="https://drive.google.com/file/d/15jIvPFIDJHPShPokDcbO-_P3J_3RvF6O/view?usp=drive_link" target="_blank" class="btn">Гугл Диск</a>
-            <a href="https://disk.yandex.ru/d/xOGR6j5OT-_JTg" target="_blank" class="btn">Яндекс Диск</a>
-        </div>
-    </div>
+            <h3 style="color: #2ecc71;">⚖️ Политика и Общество</h3>
+            <p>
+                Флевория — живой политический организм. Здесь каждый игрок может стать частью истории:
+            </p>
+            <ul>
+                <li><strong>Государственное устройство:</strong> У нас разворачивается настоящая борьба за власть, принимаются законы, работают министерства и формируются государственные институты.</li>
+                <li><strong>Экономика:</strong> Внутри страны выстроена система товарно-денежных отношений, поддерживающая баланс между регионами и коммерческими структурами.</li>
+                <li><strong>Дипломатия и право:</strong> Внутренние фракции, партии и союзы ведут непрерывный диалог, формируя внутреннюю и внешнюю повестку дня.</li>
+            </ul>
 
-    <!-- 2. БЛОК ССЫЛКИ -->
-    <div id="links" class="section">
-        <h2>Наши контакты</h2>
-        <div>
-            <a href="https://discord.gg/fc6YaXEXBn" target="_blank" class="btn">Discord</a>
-            <a href="https://t.me/RepublicFlevoria" target="_blank" class="btn">Telegram</a>
-        </div>
-        <p style="margin-top: 30px; font-size: 20px; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);">Админ: <b>@wonkov</b></p>
-    </div>
+            <h3 style="color: #e74c3c;">📅 Два года истории</h3>
+            <p>
+                За два года непрерывного развития Флевория превратилась из скромного поселения в великую державу, которая входит в 1% самых масштабных и проработанных проектов в истории Майнкрафта. Запуск этого сайта — новый этап нашей экспансии. Здесь вы сможете следить за геополитическими новостями, изучать карту, знакомиться с законами и подавать заявки на гражданство.
+            </p>
 
-    <!-- 3. БЛОК О НАС -->
-    <div id="about" class="section">
-        <h2>О нас</h2>
-        <div class="text-box">
-            <p>Добро пожаловать на проект Flevoria! Мы создаём уютный сервер Minecraft для игры с друзьями и крутым сообществом.</p>
-        </div>
-    </div>
+            <div class="highlight-box">
+                <p style="font-size: 1.2em; font-weight: bold; text-align: center; color: #f1c40f; margin: 0;">
+                    Флевория строится силами её граждан. Твоё место в истории готово — вписывай своё имя в летопись государства уже сегодня!
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Флевория. Все права защищены. Не является официальным продуктом Minecraft. Не одобрен и не связан с Mojang или Microsoft.</p>
+    </footer>
 
 </body>
 </html>
