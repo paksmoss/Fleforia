@@ -45,6 +45,15 @@
             justify-content: space-between;
             padding: 15px 40px;
             z-index: 100;
+            transition: background-color .3s, backdrop-filter .3s, padding .3s;
+        }
+
+        .top-menu.scrolled {
+            background-color: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding-top: 10px;
+            padding-bottom: 10px;
         }
 
         .logo {
@@ -56,13 +65,7 @@
             text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
         }
 
-        .nav-links {
-            display: flex;
-            gap: 32px;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-        }
+        .nav-links { display: flex; gap: 32px; }
 
         .nav-links a {
             color: rgba(255, 255, 255, 0.85);
@@ -96,7 +99,9 @@
 
         /* --- ГЛАВНЫЙ ЭКРАН --- */
         .hero {
-            background-image: url('https://i.postimg.cc/jqF2tVPy/image.png');
+            background-image:
+                linear-gradient(rgba(15,23,42,.35), rgba(15,23,42,.7)),
+                url('https://i.postimg.cc/jqF2tVPy/image.png');
         }
 
         .hero h2 {
@@ -109,10 +114,39 @@
 
         .hero h1 {
             font-size: 80px;
-            margin: 0;
+            margin: 0 0 30px;
             letter-spacing: 5px;
             text-shadow: 3px 3px 6px rgba(0,0,0,0.8);
         }
+
+        .ip-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 25px;
+            padding: 10px 10px 10px 20px;
+            background-color: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 10px;
+            font-size: 18px;
+        }
+
+        .ip-box small { color: #94a3b8; display: block; font-size: 13px; text-align: left; }
+        .ip-box b { font-size: 20px; letter-spacing: 1px; }
+
+        .ip-box button {
+            background-color: var(--accent);
+            color: #0f172a;
+            border: none;
+            border-radius: 7px;
+            padding: 10px 16px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform .2s;
+        }
+
+        .ip-box button:hover { transform: translateY(-2px); }
 
         /* --- КНОПКИ --- */
         .btn {
@@ -137,9 +171,20 @@
             transform: translateY(-3px);
         }
 
+        .btn-main {
+            background-color: var(--accent);
+            border-color: var(--accent);
+            color: #0f172a;
+            text-shadow: none;
+        }
+
+        .btn-main:hover { background-color: white; border-color: white; }
+
         /* --- ЗАГРУЗИТЬ --- */
         #download {
-            background-image: url('https://i.postimg.cc/MpkGfy9F/a.png');
+            background-image:
+                linear-gradient(rgba(15,23,42,.55), rgba(15,23,42,.75)),
+                url('https://i.postimg.cc/MpkGfy9F/a.png');
         }
 
         .steps {
@@ -182,7 +227,9 @@
 
         /* --- КОНТАКТЫ --- */
         #links {
-            background-image: url('https://i.postimg.cc/76PhYwKg/2026-10-04-22-53-14.png');
+            background-image:
+                linear-gradient(rgba(15,23,42,.45), rgba(15,23,42,.7)),
+                url('https://i.postimg.cc/76PhYwKg/2026-10-04-22-53-14.png');
         }
 
         #links p {
@@ -193,7 +240,9 @@
 
         /* --- О НАС --- */
         #about {
-            background-image: url('https://i.postimg.cc/rwWKfhD3/2026-10-01-23-44-32.png');
+            background-image:
+                linear-gradient(rgba(15,23,42,.4), rgba(15,23,42,.6)),
+                url('https://i.postimg.cc/rwWKfhD3/2026-10-01-23-44-32.png');
         }
 
         #about .text-box {
@@ -227,7 +276,7 @@
         @media (max-width: 700px) {
             .top-menu { padding: 10px 15px; }
             .logo { font-size: 16px; }
-            .nav-links { gap: 14px; position: static; transform: none; }
+            .nav-links { gap: 14px; }
             .nav-links a { font-size: 14px; }
 
             .hero h2 { font-size: 22px; }
@@ -236,6 +285,9 @@
 
             .btn { font-size: 16px; padding: 12px 20px; }
             .steps { grid-template-columns: 1fr; }
+
+            .ip-box { flex-direction: column; align-items: stretch; padding: 14px; text-align: center; }
+            .ip-box small { text-align: center; }
 
             #about .text-box { padding: 22px; font-size: 16px; }
         }
@@ -263,6 +315,15 @@
         <div id="hero" class="hero">
             <h2>WELCOME TO</h2>
             <h1>FLEVORIA</h1>
+            <a href="https://discord.gg/fc6YaXEXBn" target="_blank" rel="noopener noreferrer" class="btn btn-main">Присоединиться</a>
+
+            <div class="ip-box">
+                <div>
+                    <small>IP сервера · версия <span id="version"></span></small>
+                    <b id="ip"></b>
+                </div>
+                <button type="button" id="copy-btn">Скопировать</button>
+            </div>
         </div>
 
         <!-- ЗАГРУЗИТЬ -->
@@ -271,7 +332,7 @@
             <ol class="steps">
                 <li><b>Скачай моды</b>Загрузи архив по кнопкам ниже и установи в папку игры.</li>
                 <li><b>Зайди в Discord</b>Там правила, помощь и подача заявки на гражданство.</li>
-                <li><b>Начни играть</b>Следуй инструкциям в Discord и становись гражданином Флевории.</li>
+                <li><b>Подключись</b>Добавь сервер по IP из первого экрана и заходи в игру.</li>
             </ol>
             <div>
                 <a href="https://drive.google.com/file/d/15jIvPFIDJHPShPokDcbO-_P3J_3RvF6O/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="btn">Гугл Диск</a>
@@ -324,5 +385,36 @@
 
     <footer>© Флевория, 2026</footer>
 
+    <script>
+        // ВПИШИ СВОИ ДАННЫЕ СЮДА
+        const SERVER_IP = "ВАШ_IP_СЕРВЕРА";
+        const GAME_VERSION = "1.20.1";
+
+        document.getElementById("ip").textContent = SERVER_IP;
+        document.getElementById("version").textContent = GAME_VERSION;
+
+        // Копирование IP
+        const copyBtn = document.getElementById("copy-btn");
+        copyBtn.addEventListener("click", async () => {
+            try {
+                await navigator.clipboard.writeText(SERVER_IP);
+            } catch (e) {
+                const t = document.createElement("textarea");
+                t.value = SERVER_IP;
+                document.body.appendChild(t);
+                t.select();
+                document.execCommand("copy");
+                t.remove();
+            }
+            copyBtn.textContent = "Скопировано!";
+            setTimeout(() => (copyBtn.textContent = "Скопировать"), 1800);
+        });
+
+        // Фон меню при прокрутке
+        const menu = document.getElementById("menu");
+        const onScroll = () => menu.classList.toggle("scrolled", window.scrollY > 40);
+        window.addEventListener("scroll", onScroll, { passive: true });
+        onScroll();
+    </script>
 </body>
 </html>
